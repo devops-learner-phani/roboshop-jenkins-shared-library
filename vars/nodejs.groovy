@@ -6,5 +6,6 @@ def call() {
       sh '''ls -ltr
       npm install'''
     }
+    sh 'env'
   }
 }
