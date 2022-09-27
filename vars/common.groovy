@@ -17,12 +17,6 @@ def publishArtifacts() {
         zip -r ${COMPONENT}-${TAG_NAME}.zip *.py requirements.txt ${COMPONENT}.ini
       """
     }
-    if (env.APP_TYPE == "nginx") {
-      sh """
-        cd static
-        zip -r ../${COMPONENT}-${TAG_NAME}.zip * 
-      """
-    }
     if (env.APP_TYPE == "maven") {
       sh """
         mv target/${COMPONENT}-1.0.jar ${COMPONENT}.jar
@@ -32,6 +26,12 @@ def publishArtifacts() {
     if (env.APP_TYPE == "golang") {
       sh """
         zip -r ${COMPONENT}-${TAG_NAME}.zip main.go 
+      """
+    }
+    if (env.APP_TYPE == "nginx") {
+      sh """
+        cd static
+        zip -r ../${COMPONENT}-${TAG_NAME}.zip * 
       """
     }
   }
