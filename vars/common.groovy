@@ -43,6 +43,11 @@ def publishArtifacts() {
       """
     }
   }
+  stage("Deploy-to-any-dev") {
+    sh """
+      build job: 'Deploy-to-any-dev', parameters: [string(name: 'COMPONENT', value: "${COMPONENT}"), string(name: 'ENV', value: "${ENV}"), string(name: 'APP_VERSION', value: "${TAG_NAME}")]
+    """
+  }
 }
 
 def codeChecks() {
