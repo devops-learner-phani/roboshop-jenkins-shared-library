@@ -2,7 +2,8 @@ def call() {
   node() {
 
     stage('Download dependencies') {
-      sh '''go get
+      sh '''go mod init ${COMPONENT}
+      go get
       go build'''
     }
   }
