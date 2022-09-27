@@ -1,4 +1,4 @@
-def call () {
+def call() {
   node() {
     stage('Download dependencies') {
       sh '''ls -ltr
