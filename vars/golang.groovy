@@ -2,11 +2,11 @@ def call() {
   node() {
     
     stage('Download dependencies') {
-      sh """
+      sh '''
         go mod init dispatch
         go get
         go build
-      """
+      '''
     }
   }
 }    
