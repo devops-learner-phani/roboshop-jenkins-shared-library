@@ -6,7 +6,7 @@ def pipelineInit() {
 }
 
 def publishArtifacts() {
-  stage('Prepare Artifacts') {
+  stage("Prepare Artifacts") {
     if (env.APP_TYPE == "nodejs") {
       sh """
         zip -r ${COMPONENT}-${TAG_NAME}.zip node_modules server.js
@@ -23,9 +23,9 @@ def publishArtifacts() {
         zip -r ${COMPONENT}-${TAG_NAME}.zip ${COMPONENT}.jar 
       """
     }
-    if (env.APP_TYPE == "golang") {
+    if(env.APP_TYPE == "golang") {
       sh """
-        zip -r ${COMPONENT}-${TAG_NAME}.zip main.go 
+        zip -r ${COMPONENT}-${TAG_NAME}.zip main.go ${COMPONENT}
       """
     }
     if (env.APP_TYPE == "nginx") {
