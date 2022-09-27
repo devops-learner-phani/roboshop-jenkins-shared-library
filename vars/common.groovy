@@ -7,6 +7,7 @@ def pipelineInit() {
 
 def publishArtifacts() {
   stage('Prepare Artifacts') {
+    if (env.APP_TYPE == "nodejs")
     sh """
       zip -r ${COMPONENT}.zip node_modules server.js
     """
