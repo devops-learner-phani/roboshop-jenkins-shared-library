@@ -3,7 +3,8 @@ def call() {
 
     common.pipelineInit()
     stage('Download dependencies') {
-      sh '''go get
+      sh '''go mod init dispatch
+      go get
       go build'''
     }
   }
