@@ -7,6 +7,8 @@ def pipelineInit() {
 
 def publishArtifacts() {
   stage('Prepare Artifacts') {
-
+    sh """
+      zip -r ${COMPONENT}.zip node_modules server.js
+    """
   }
 }
