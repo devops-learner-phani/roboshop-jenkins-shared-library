@@ -23,9 +23,9 @@ def publishArtifacts() {
         zip -r ${COMPONENT}-${TAG_NAME}.zip ${COMPONENT}.jar 
       """
     }
-    if(env.APP_TYPE == "golang") {
+    if (env.APP_TYPE == "golang") {
       sh """
-        zip -r ${COMPONENT}-${TAG_NAME}.zip main.go ${COMPONENT}
+        zip -r ${COMPONENT}-${TAG_NAME}.zip *
       """
     }
     if (env.APP_TYPE == "nginx") {
