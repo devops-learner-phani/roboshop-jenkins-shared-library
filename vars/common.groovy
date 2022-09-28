@@ -52,7 +52,7 @@ def publishArtifacts() {
   promoteRelease("dev" , "qa")
 }
 
-def promotoRelease(SOURCE_ENV,ENV) {
+def promoteRelease(SOURCE_ENV,ENV) {
   withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'pass', usernameVariable: 'user')]) {
     sh """
       cp ${SOURCE_ENV}-${COMPONENT}-${TAG_NAME}.zip ${ENV}-${COMPONENT}-${TAG_NAME}.zip 
