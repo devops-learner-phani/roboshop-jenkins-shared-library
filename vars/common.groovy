@@ -46,6 +46,19 @@ def publishArtifacts() {
   stage("Deploy-to-any-dev") {
     build job: 'Deploy-to-any-dev', parameters: [string(name: 'COMPONENT', value: "${COMPONENT}"), string(name: 'ENV', value: "${ENV}"), string(name: 'APP_VERSION', value: "${TAG_NAME}")]
   }
+  stage("Start smoke tests") {
+    sh "echo smoke test"
+  }
+  promoteRelease("dev" , "qa")
+}
+
+def promotoRelease(SOURCE_ENV,ENV) {
+  withCredentials([usernamePassword(credentialsId: 'nexus', passwordVariable: 'pass', usernameVariable: 'user')]) {
+    sh """
+      cp ${SOURCE_ENV}-${COMPONENT}-${TAG_NAME}.zip ${ENV}-${COMPONENT}-${TAG_NAME}.zip 
+      curl -v -u ${user}:${pass} --upload-file ${ENV}-${COMPONENT}-${TAG_NAME}.zip  http://nexus.roboshop.internal:8081/repository/${COMPONENT}/${ENV}-${COMPONENT}-${TAG_NAME}.zip
+    """
+  }
 }
 
 def codeChecks() {
