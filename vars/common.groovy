@@ -46,10 +46,37 @@ def publishArtifacts() {
   stage("Deploy-to-any-dev") {
     build job: 'Deploy-to-any-dev', parameters: [string(name: 'COMPONENT', value: "${COMPONENT}"), string(name: 'ENV', value: "${ENV}"), string(name: 'APP_VERSION', value: "${TAG_NAME}")]
   }
-  stage("Start smoke tests") {
+  stage("Start smoke tests for dev") {
     sh "echo smoke test"
   }
   promoteRelease("dev" , "qa")
+
+  stage("Deploy-to-any-qa") {
+//    build job: 'Deploy-to-any-dev', parameters: [string(name: 'COMPONENT', value: "${COMPONENT}"), string(name: 'ENV', value: "${ENV}"), string(name: 'APP_VERSION', value: "${TAG_NAME}")]
+    sh "echo QA deploy"
+  }
+  testRun()
+
+  stage("Start smoke tests for qa") {
+    sh "echo smoke test"
+  }
+  promoteRelease("qa" , "prod")
+}
+
+def testRun() {
+  stage('quality test') {
+    parallel([
+      intigrationTests: {
+        echo 'intigrationTests'
+      },
+      penetrationTests: {
+        echo 'penetrationTests'
+      },
+      e2eTests: {
+        echo 'e2eTests'
+      }
+    ])
+  }
 }
 
 def promoteRelease(SOURCE_ENV,ENV) {
