@@ -9,7 +9,7 @@ def call() {
       sh 'terraform plan'
     }
 
-    stage(terraform Apply) {
+    stage(terraform apply) {
       sh 'terraform apply -auto-approve'
     }
   }
