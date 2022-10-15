@@ -1,11 +1,11 @@
 def call() {
-  node() {
+  node {
 
-    stage(Terraform INIT) {
+    stage('Terraform INIT') {
       sh 'terraform init'
     }
 
-    stage(terraform plan) {
+    stage('terraform plan)' {
       sh 'terraform plan'
     }
 
