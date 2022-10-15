@@ -1,16 +1,19 @@
 def call() {
   node {
 
-    stage('Terraform INIT') {
-      sh 'terraform init'
-    }
+    ansiColor('xterm') {
 
-    stage('terraform plan)' {
-      sh 'terraform plan'
-    }
+      stage('Terraform INIT') {
+        sh 'terraform init'
+      }
 
-    stage(terraform apply) {
-      sh 'terraform apply -auto-approve'
-    }
+      stage('Terraform plan') {
+        sh 'terraform plan'
+      }
+
+      stage('terraform apply') {
+        sh 'terraform apply -auto-approve'
+      }
+    }         
   }
 }
