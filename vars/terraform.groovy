@@ -5,7 +5,7 @@ def call() {
       sh 'terraform init'
     }
 
-    stage(terraform Plan) {
+    stage(terraform plan) {
       sh 'terraform plan'
     }
 
